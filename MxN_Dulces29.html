@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MxN - Dulces 29</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 20px; font-family: Arial; background: #f5f5f0;">
+    
+    <div style="max-width: 400px; margin: 0 auto;">
+        
+        <!-- HEADER -->
+        <div style="background: #2D5A27; color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 20px;">
+            <h1 style="margin: 0; font-size: 2rem;">MxN - Dulces 29</h1>
+            <p style="margin: 10px 0 0 0;">Una aventura especial te espera ✨</p>
+        </div>
+
+        <!-- BARRA DE PROGRESO -->
+        <div style="background: white; border-radius: 25px; height: 8px; margin: 20px 0; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+            <div id="progress" style="height: 100%; background: linear-gradient(90deg, #FF6B35, #FFB366); border-radius: 25px; width: 0%; transition: width 1s ease;"></div>
+        </div>
+
+        <!-- CONTENEDOR DE PLANES -->
+        <div id="plansContainer">
+            <!-- Los planes aparecerán aquí -->
+        </div>
+    </div>
+
+    <script>
+        let currentPlan = 0;
+        const plans = [
+            {
+                number: 1,
+                title: "¡NOS VAMOS DE VIAJE!",
+                description: "Haz tus maletas y elige bien tus mejores outfits, que tenemos que renovar las fotitos juntos ❤️",
+                time: "Jueves 16 de Octubre a las 15:00",
+                location: "Te recojo de tu casita",
+                image: "https://i.imgur.com/4JCjU4A.jpeg"
+            },
+            {
+                number: 2,
+                title: "¡A mover el culo lo primero!",
+                description: "Te creías que te llevaba de viaje? JA! Te llevo de concentración!",
+                time: "Jueves 16 de Octubre a las 18:45",
+                location: "Complejo Polideportivo Diocles",
+                image: "https://i.imgur.com/HrFfvBj.png"
+            },
+            {
+                number: 3,
+                title: "Tendremos que dormir en algún sitio (y cenar...?)",
+                description: "Hoy te hacen hueco en los establos romanos... Yo te espero en la furgo :)",
+                time: "Jueves 16 de Octubre a las 21:00",
+                location: "Establos del Circo Romano, Mérida",
+                image: "https://i.imgur.com/ozy2zUY.jpeg"
+            },
+            {
+                number: 4,
+                title: "A descargar las patas jiji",
+                description: "Un rodaje de 7 minutos al centro. Toca paseito nocturno... O no ;) ;)",
+                time: "Jueves 16 de Octubre a las 22:00",
+                location: "Mérida",
+                image: "https://i.imgur.com/eDOBnSd.png"
+            },
+            {
+                number: 5,
+                title: "Desayuno de princesa!!",
+                description: "Al despertarte ni te muevas. Será el primer y último día que a tu nenita no se le pegan las sábanas. Ya puedes darme mil besitos, eh?",
+                time: "Viernes 17 de Octubre a las 9:30",
+                location: "Casita",
+                image: "https://i.imgur.com/gnTP28Z.png"
+            },
+            {
+                number: 6,
+                title: "Toca ser culturetas!! (O al menos hacer una selección jeje)",
+                description: "Una sola entrada incluye: Teatro y Anfiteatro romanos, Alcazaba, Casa del Mitreo y Área Funeraria de los Columbarios, Cripta Arqueológica de Santa Eulalia, Área Arqueológica de Morería, Casa del Anfiteatro, Templo de Diana y Circo romano.",
+                time: "Viernes 17 de Octubre de 10:30 a 14:00",
+                location: "Mérida",
+                image: "https://i.imgur.com/ZW1b0p3.jpeg"
+            },
+            {
+                number: 7,
+                title: "A comer!!",
+                description: "Comidita y un poco de tiempo libre a tu elección, que tienes que coger fuerzas jeje",
+                time: "Viernes 17 de Octubre a las 14:30",
+                location: "Furgo y en específico encima de tu regalito de cumple jeje",
+                image: "https://i.imgur.com/tjOEAPO.png"
+            },
+            {
+                number: 8,
+                title: "Espero que hayas cogido suficientes fuerzas...",
+                description: "Necesitarás energía para esta actividad (y no, sadly no es lo que piensas)",
+                time: "Viernes 17 de Octubre a las 17:00",
+                location: "ENERGYM",
+                image: "https://i.imgur.com/q1j4xOG.png"
+            },
+            {
+                number: 9,
+                title: "¡Rumbo a Cáceres!",
+                description: "A no ser que quieras dar otro paseito: a la Furgo!! (Te toca conducir jiji)",
+                time: "Viernes 17 de Octubre a las 19:00",
+                location: "E803/A66",
+                image: "https://i.imgur.com/LtyRmLv.png"
+            },
+            {
+                number: 10,
+                title: "Hora de cenar!",
+                description: "Esta vez he decidido sacarte de la furgo. Espero que nos guste jeje :D",
+                time: "Viernes 17 de Octubre a las 21:30",
+                location: "El Figón de Eustaquio, desde 1947",
+                image: "https://i.imgur.com/0n8YoX9.png"
+            },
+            {
+                number: 11,
+                title: "Te creeías que te iba a hacer el desyuno todos los días?",
+                description: "Un poco de fritanga nunca hizo daño a nadie, y menos si iba acompañada de paseíto!",
+                time: "Sábado 18 de Octubre a las 10:00",
+                location: "Churrería Ronda del Carmen",
+                image: "https://i.imgur.com/HsH2DrD.png"
+            },
+            {
+                number: 12,
+                title: "Trujjjjjillo",
+                description: "Tiene un castillo chuli, me quedaba sin planes, qué le hago? :0",
+                time: "Sábado 18 de Octubre de 11:00 a 14:00",
+                location: "Castillo de Trujillo",
+                image: "https://i.imgur.com/ReDe6yw.jpeg"
+            },
+            {
+                number: 13,
+                title: "Aquí lo que se busca es la tranquilidad",
+                description: "Y si damos un paseo por el Parque Nacional de Monfrague?",
+                time: "Sábado 18 de Octubre al atardecer ",
+                location: "Salto del Gitano (x ejemplo)",
+                image: "https://i.imgur.com/F9DE9yR.jpeg"
+            },
+            {
+                number: 14,
+                title: "Tu churri ha pensado en otra excursión! Besitooooo!!",
+                description: "En teoría un conserje nos va a acompañar durante 45 minutos xd",
+                time: "Domingo 19 de Octubre a las 11:00",
+                location: "Real Monasterio de Guadalupe",
+                image: "https://i.imgur.com/tE3I7XO.png"
+            },
+            {
+                number: 15,
+                title: "Si sigues con ganas de Migas...",
+                description: "Tiene muy buena nota en el maps... habrá que juzgarlo nosotros mismos no?",
+                time: "Domingo 19 de Octubre a las 14:00",
+                location: "Las Ánimas del Tiempo",
+                image: "https://i.imgur.com/zrgH2Xp.png"
+            },
+            {
+                number: 16,
+                title: "Todo lo bueno llega a su fin :(",
+                description: "Menos nosotros ¡! jiji",
+                time: "Con la calma",
+                location: "Madrid feo contaminación ruido",
+                image: "https://i.imgur.com/QXazf1c.png"
+            }
+        ];
+
+        function showCurrentPlan() {
+            const container = document.getElementById('plansContainer');
+            
+            if (currentPlan >= plans.length) {
+                container.innerHTML = `
+                    <div style="background: linear-gradient(135deg, #7FCDCD, #2D5A27); color: white; padding: 40px 25px; border-radius: 20px; text-align: center;">
+                        <h2 style="margin: 0 0 20px 0; font-size: 2rem;">¡Aventura Completada!</h2>
+                        <p style="margin: 0; font-size: 1.1rem; line-height: 1.6;">
+                            ¡Espero que hayas disfrutado cada momento (más que) como yo de hacerte este ragalito!<br>
+                            <strong style="color: #FFB366;">¡Feliz cumpleaños, mi vida! 💕</strong>
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            const plan = plans[currentPlan];
+            
+            container.innerHTML = `
+                <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border: 3px solid #7FCDCD; transform: translateY(20px); opacity: 0; transition: all 0.5s ease;" id="currentCard">
+                    
+                    <img src="${plan.image}" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+
+                    <div style="padding: 25px;">
+                        <span style="background: #FF6B35; color: white; padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; font-weight: bold;">Plan ${plan.number}</span>
+                        
+                        <h2 style="color: #2D5A27; font-size: 1.4rem; margin: 15px 0 10px 0;">${plan.title}</h2>
+                        
+                        <div style="background: #7FCDCD; color: #2D5A27; padding: 8px 12px; border-radius: 8px; display: inline-block; font-weight: bold; margin-bottom: 15px;">
+                            ${plan.time}
+                        </div>
+                        
+                        <div style="color: #CC4A00; font-weight: bold; margin-bottom: 15px;">
+                            📍 ${plan.location}
+                        </div>
+                        
+                        <p style="color: #666; line-height: 1.5; margin-bottom: 20px;">
+                            ${plan.description}
+                        </p>
+                        
+                        <button onclick="completePlan()" style="background: linear-gradient(135deg, #FF6B35, #CC4A00); color: white; border: none; padding: 15px 25px; border-radius: 20px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; transition: transform 0.2s;">
+                            Done! Dame + planes!
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Animación de entrada
+            setTimeout(() => {
+                document.getElementById('currentCard').style.transform = 'translateY(0)';
+                document.getElementById('currentCard').style.opacity = '1';
+            }, 100);
+
+            // Actualizar progreso
+            const progress = ((currentPlan + 1) / plans.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function completePlan() {
+            const card = document.getElementById('currentCard');
+            card.style.transform = 'scale(0.95)';
+            card.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                currentPlan++;
+                showCurrentPlan();
+            }, 500);
+        }
+
+        // Mostrar primer plan
+        showCurrentPlan();
+    </script>
+
+</body>
+</html>
